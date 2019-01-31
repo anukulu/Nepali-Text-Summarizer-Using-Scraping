@@ -166,39 +166,3 @@ def home(request):
 	# passing the summary to the template so that it can be printed
 	return render(request, "summary/home.html", {'text' : keyword, 'text2': keyword2})
 
-# after articleText has been defined 
-# file = open('summary/nepali2.txt' , 'w', encoding="UTF-8")
-# file.write(articleText)
-# file.close()
-
-# file = open('summary/nepali2.txt' , encoding="UTF-8")
-# articleText = file.read()
-
-# after if(keyword != "")
-# urls = ""
-# topics = ""
-# for x in range(1,3):
-# 	if(x == 1):
-# 		source = requests.get('https://www.onlinekhabar.com/content/news').text
-# 	else:
-# 		source = requests.get('https://www.onlinekhabar.com/content/news' + '/page/' + str(x)).text
-# 	soup = BeautifulSoup(source, 'lxml')
-
-# 	for url in soup.find_all('div', class_="item__wrap"):
-# 		singleUrl = str(url.a)
-# 		singleUrl = singleUrl.split('"')[3]
-# 		urls = urls + singleUrl + "\n"
-
-# 		source2 = requests.get(singleUrl).text
-# 		soup2 = BeautifulSoup(source2, 'lxml')
-# 		data = soup2.find('div', class_="nws__title--card")
-# 		topic = str(data.h2.text)
-					
-# 		topics = topics + topic + '\n'
-
-# file = open('summary/urls.txt', 'w', encoding="UTF-8")
-# file.write(urls)
-# file.close()
-# file = open('summary/topics.txt', 'w', encoding="UTF-8")
-# file.write(topics)
-# file.close()
