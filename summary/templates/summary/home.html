@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+#summary, #words{
+ background:white;
+ width: 900px;
+ height: 400px;
+ font: normal 14px verdana;
+ line-height: 25px;
+ padding: 2px 10px;
+ border: solid 3px #ddd;
+}
+</style>
+	<title></title>
+</head>
+<body>
+<h4>कृपया नेपालीमा केहि शब्दहरु लेखेर 'ENTER' थिचिदिनुहोला </h4>
+<!-- <iframe width="20%" height="400" frameborder="0" border="no" scrolling="no" marginwidth="0" marginheight="0" allowtransparency="true" src="https://www.ashesh.com.np/linknepali-unicode3.php?api=282118j446">
+</iframe> -->
+<form method="post" enctype="multipart/form-data" action="/">
+	{% csrf_token %}
+	<textarea name="nepaliWords" rows="4" cols="50">{{ text2 }}</textarea><br/>
+	<button type="submit" name="submit">ENTER</button> 
+</form>
+<br/> <br/>
+
+<h4>तपाइले खोज्नुभएको शब्दसँग मिल्दो समाचारहरुको साराम्श ।</h4>
+{% if text|length %}
+	<textarea id= "words" rows="25" cols="200" style="background-color: #FFFFFF">{{ text }}</textarea>
+{% else %}
+	<textarea id= "summary" rows="25" cols="200" disabled>कृपया माथी केहि लेख्नुहोस ।</textarea>
+{% endif %}
+</body>
+</html>
