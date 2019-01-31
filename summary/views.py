@@ -34,9 +34,15 @@ def summarize(urlOfTheTopic):
 	soup = BeautifulSoup(source, 'lxml')
 
 	# for all the text contained inside p tags of the html, we get only the text written inside 
-	for article in soup.find_all('p'):
-		newsArticle = str(article.get_text())
-		articles = articles + " " + newsArticle
+	if("onlinekhabar.com" in urlOfTheTopic):
+		for article in soup.find_all('p'):
+			newsArticle = str(article.get_text())
+			articles = articles + " " + newsArticle
+			
+	elif ("ujyaaloonline.com" in urlOfTheTopic):
+		for article in soup.find_all('p', style="text-align: justify;"):
+			newsArticle = str(article.get_text())
+			articles = articles + " " + newsArticle
 
 	# remove all numbers using regular expression
 	articleText = re.sub(r'\[[0-9]*\]', r' ', articles)  
@@ -80,8 +86,8 @@ def summarize(urlOfTheTopic):
 	sentScores = {}  
 	for sent in sentenceList:  
 		for word in nltk.word_tokenize(sent):
-			#we do not want to keep sentences with words more than 40
-			if len(sent.split(' ')) < 40:
+			#we do not want to keep sentences with words more than 30
+			if len(sent.split(' ')) < 30:
 				if word in wordFrequencies.keys():
 					if sent not in sentScores.keys():
 						sentScores[sent] = wordFrequencies[word]
