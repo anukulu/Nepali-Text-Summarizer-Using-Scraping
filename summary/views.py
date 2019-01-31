@@ -77,6 +77,8 @@ def summarize(urlOfTheTopic):
 			else:
 				wordFrequencies[word] += 1
 
+	if (len(wordFrequencies) == 0):
+		return ""
 	# finding the maximum frequency and calculating weighted frequency for all the words in the sentence 
 	maxFrequency = max(wordFrequencies.values())
 	for word in wordFrequencies.keys():  
@@ -127,6 +129,7 @@ def home(request):
 			count = 0
 			summary = ""
 
+			counterForNumberOfArticles = 0
 			# for each topic in topics.txt, we find the cosine similarity between the word and the topic
 			for line in file.readlines():
 				l2 = line.split()
@@ -135,17 +138,23 @@ def home(request):
 				# the threshold is that the cosine similarity must be greater than zero
 				if (cosim(v1, v2) > 0):
 
+					# limiting the number of articles to 10
+					if(counterForNumberOfArticles < 10):
 					# if the similarity is greater than zero then summarize the article for the related topic using its
 					# corresponding topic
-					file2 = open('summary/urls.txt', 'r', encoding="UTF-8")
-					urlOfTheTopic = file2.read().split()[count]
+						file2 = open('summary/urls.txt', 'r', encoding="UTF-8")
+						urlOfTheTopic = file2.read().split()[count]
 
 					# passing the url of the topic for summarization of that article
-					finalSummary = summarize(urlOfTheTopic)
+						finalSummary = summarize(urlOfTheTopic)
 
 					# we do not want repeated articles to be included in the summary 
-					if (finalSummary not in summary): 
-						summary = summary + line + '\n' + finalSummary + '\n\n'
+						if (finalSummary not in summary): 
+							summary = summary + line + '\n' + finalSummary + '\n\n'
+
+						counterForNumberOfArticles += 1
+					else:
+						break
 				count += 1
 
 			# if the summary is empty print a message saying that the article could not be found
